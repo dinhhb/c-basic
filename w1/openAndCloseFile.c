@@ -2,7 +2,7 @@
 enum {SUCCESS, FAIL};
 int main()  {
     FILE *fptr;
-    char filename[]= "haiku.txt";
+    char filename[]= "text/lab1.txt";
     int reval = SUCCESS;
     if ((fptr = fopen(filename, "r")) == NULL){
          printf("Cannot open %s.\n", filename);

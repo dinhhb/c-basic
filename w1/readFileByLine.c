@@ -20,8 +20,8 @@ int LineReadWrite(FILE *fin, FILE *fout)
 int main()
 {
     FILE *fptr1, *fptr2;
-    char filename1[] = "lab1a.txt";
-    char filename2[] = "lab1.txt";
+    char filename1[] = "text/lab1a.txt";
+    char filename2[] = "text/lab1.txt";
     int reval = SUCCESS;
     if ((fptr1 = fopen(filename1, "w")) == NULL)
     {

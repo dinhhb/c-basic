@@ -20,7 +20,7 @@ int main(int argc, char **argv){
     int reval = SUCCESS;
 
     if (argc != 3){
-        printf("Usage: %s file1.txt file2.txt\n", argv[0]);
+        printf("Usage: %s text/file1.txt text/file2.txt\n", argv[0]);
         exit(1);
     }
 

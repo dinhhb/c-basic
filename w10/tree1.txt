@@ -1,0 +1,20 @@
+5 2 4 
+2 1 11 
+1 -1 -1 
+11 -1 -1 
+4 3 6 
+3 10 7 
+10 -1 -1 
+7 -1 -1 
+6 -1 -1 
+-2
+
+if (subSum == 0 && r->leftChild == NULL && r->rightChild == NULL)
+        return 1;
+ 
+    if (r->leftChild)
+        ans = ans || hasPathSum(r->leftChild, subSum);
+    if (r->rightChild)
+        ans = ans || hasPathSum(r->rightChild, subSum);
+ 
+    return ans; 

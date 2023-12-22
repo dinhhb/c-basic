@@ -87,7 +87,7 @@ Profile *find(char *name)
 void removeProfile(char *name)
 {
     if (listEmpty())
-        return NULL;
+        return;
     Profile *profile = find(name);
     if (profile == NULL)
     {
@@ -109,21 +109,21 @@ void removeProfile(char *name)
     }
 }
 
-void load(char *filename)
-{
-    FILE *f = fopen(filename, "r");
-    if (f == NULL)
-        printf("Load data -> file not found\n");
-    initList();
-    while (!feof(f))
-    {
-        char name[256], email[256];
-        fscanf(f, "%s%s", name, email);
-        insertLast(name, email);
-        printf("insert %s, %s\n", name, email);
-    }
-    fclose(f);
-}
+// void load(char *filename)
+// {
+//     FILE *f = fopen(filename, "r");
+//     if (f == NULL)
+//         printf("Load data -> file not found\n");
+//     initList();
+//     while (!feof(f))
+//     {
+//         char name[256], email[256];
+//         fscanf(f, "%s%s", name, email);
+//         insertLast(name, email);
+//         printf("insert %s, %s\n", name, email);
+//     }
+//     fclose(f);
+// }
 
 void processFind()
 {
@@ -142,10 +142,20 @@ void processFind()
 
 void processLoad()
 {
-    char filename[256];
-    scanf("%s", filename);
-    load(filename);
+    initList();
+    char line[512];
+    char name[256], email[256];
+
+    while (fgets(line, sizeof(line), stdin) != NULL)
+    {
+        if (sscanf(line, "%s%s", name, email) == 2)
+        {
+            insertLast(name, email);
+            printf("insert %s, %s\n", name, email);
+        }
+    }
 }
+
 void processStore()
 {
     char filename[256];

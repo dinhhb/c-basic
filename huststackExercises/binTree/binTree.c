@@ -279,7 +279,7 @@ void freeTree(Node *r)
     r = NULL;
 }
 
-void main()
+int main()
 {
     while (1)
     {
@@ -308,4 +308,5 @@ void main()
         //     processStore();
     }
     freeTree(root);
+    return 0;
 }

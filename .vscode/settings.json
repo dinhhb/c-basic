@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "cstdio": "c",
+        "string.h": "c",
+        "typeinfo": "c"
+    }
+}

@@ -1,71 +1,70 @@
+/*
+Cho một mảng chứa n (n <= 500) xâu có độ dài tối đa 80 kí tự, hãy dùng một thuật toán sắp xếp đã học 
+(chèn, lựa chọn, nổi bọt) để sắp xếp mảng theo thứ tự tăng dần theo thứ tự từ điển. 
+Đầu vào có dòng đầu là n, dòng thứ hai chứa n xâu. Đầu ra là mảng đã sắp xếp in ra trên n dòng, mỗi xâu trên một dòng
+Ví dụ:
+INPUT
+3
+Hello my friend
+OUTPUT
+friend
+Hello
+my
+*/
+
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_WORDS 100
+#define MAX_STRINGS 500
 #define MAX_LENGTH 81
 
-void selectionSort(char arr[][MAX_LENGTH], int n)
-{
-    for (int i = 0; i < n - 1; i++)
-    {
-        int min_idx = i;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (strcmp(arr[j], arr[min_idx]) < 0)
-                min_idx = j;
+void bubbleSort(char arr[][MAX_LENGTH], int n) {
+    int i, j;
+    char temp[MAX_LENGTH];
+    for (i = 0; i < n-1; i++) {
+        for (j = 0; j < n-i-1; j++) {
+            if (strcmp(arr[j], arr[j+1]) > 0) {
+                strcpy(temp, arr[j]);
+                strcpy(arr[j], arr[j+1]);
+                strcpy(arr[j+1], temp);
+            }
         }
-        char temp[81];
-        strcpy(temp, arr[min_idx]);
-        strcpy(arr[min_idx], arr[i]);
-        strcpy(arr[i], temp);
-        // strncpy(temp, arr[min_idx], 80);
-        // strncpy(arr[min_idx], arr[i], 80);
-        // strncpy(arr[i], temp, 80);
     }
 }
 
 int main() {
-    int n;
-    char arr[MAX_WORDS][MAX_LENGTH];
-    char inputLine[MAX_WORDS * MAX_LENGTH];
+    int n, i = 0;
+    char strings[MAX_STRINGS][MAX_LENGTH];
+    char input_line[MAX_STRINGS * MAX_LENGTH];
+    char *token;
 
-    // Read the number of words
-    if (scanf("%d\n", &n) != 1) {
-        fprintf(stderr, "Error reading the number of words\n");
-        return 1;
-    }
+    // Reading the number of strings
+    scanf("%d", &n);
 
-    // Validate the number of words
-    if (n < 1 || n > MAX_WORDS) {
-        fprintf(stderr, "Invalid number of words\n");
-        return 1;
-    }
+    // Clearing the input buffer
+    while (getchar() != '\n');
 
-    // Read the entire line
-    if (fgets(inputLine, sizeof(inputLine), stdin) == NULL) {
-        fprintf(stderr, "Error reading input line\n");
-        return 1;
-    }
+    // Reading the entire line
+    fgets(input_line, sizeof(input_line), stdin);
 
-    // Remove newline character if present
-    inputLine[strcspn(inputLine, "\n")] = '\0';
-
-    // Split the input line into words and store them in the array
-    char *token = strtok(inputLine, " ");
-    int i = 0;
+    // Splitting the line into tokens
+    token = strtok(input_line, " ");
     while (token != NULL && i < n) {
-        strncpy(arr[i], token, MAX_LENGTH - 1);
-        arr[i][MAX_LENGTH - 1] = '\0'; // Ensure null-termination
+        strncpy(strings[i], token, MAX_LENGTH);
+        strings[i][strcspn(strings[i], "\n")] = 0; // Remove newline character
         i++;
         token = strtok(NULL, " ");
     }
 
-    // Sort the array of words
-    selectionSort(arr, n);
+    // Adjust the actual number of strings read
+    n = i;
 
-    // Print the sorted words
+    // Sorting the strings
+    bubbleSort(strings, n);
+
+    // Printing the sorted strings
     for (int i = 0; i < n; i++) {
-        printf("%s\n", arr[i]);
+        printf("%s\n", strings[i]);
     }
 
     return 0;
